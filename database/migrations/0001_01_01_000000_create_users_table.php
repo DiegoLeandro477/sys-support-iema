@@ -21,7 +21,7 @@ return new class extends Migration
             $table->timestamps();
 
             //Adiciona a chave estrangéria de Roles
-            $table->unsignedBigInteger('role_id')->nullable();
+            $table->unsignedBigInteger('role_id')->default(2);
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

@@ -12,6 +12,9 @@ Route::get('/', function () {
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login', [AuthController::class, 'loginAttempt'])->name('auth');
 
+Route::get('/cadastrar', [AuthController::class, 'showRegistrationForm'])->name('register');
+Route::post('/cadastrar', [AuthController::class, 'register'])->name('register.post');
+
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 

@@ -14,25 +14,36 @@
         <div class="card shadow" style="max-width: 400px; width: 100%;">
             <div class="card-body">
                 <div class="text-center mb-4">
-                    <h4 class="mt-2 mb-0">Suporte Iema</h4>
+                    <h4 class="mt-2 mb-0">Criar Usuário</h4>
                 </div>
-                <form method="POST" action="{{ route('login') }}">
+                @if (count($errors) > 0)
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+
+                @endif
+                <form method="POST" action="{{ route('register.post') }}">
                     @csrf
                     @method('POST')
                     <div class="mb-3">
+                        <label for="name" class="form-label">Nome e Sobrenome</label>
+                        <input type="name" class="form-control" id="name" name="name" value="{{ old('name') }}" required autofocus>
+                    </div>
+                    <div class="mb-3">
                         <label for="email" class="form-label">E-mail</label>
-                        <input type="email" class="form-control" id="email" name="email" required autofocus>
+                        <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required autofocus>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Senha</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
+                        <input type="password" class="form-control" id="password" name="password" value="{{ old('password') }}" required>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100">Entrar</button>
+                    <button type="submit" class="btn btn-primary w-100 mb-2">Cadastrar</button>
+                    <a href="{{ route('login') }}" class="btn w-100">Cancelar</a>
                 </form>
-                <div class="mt-3 text-center d-flex flex-column gap-2">
-                    <a href="#" class="text-decoration-none">Esqueceu a senha?</a>
-                    <a href="{{ route('register') }}" class="text-decoration-none">Cadastrar novo usuário</a>
-                </div>
             </div>
         </div>
         <footer class="mt-4 text-muted small text-center">
