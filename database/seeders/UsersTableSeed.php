@@ -13,10 +13,14 @@ class UsersTableSeed extends Seeder
     /**
      * Run the database seeds.
      */
+
     public function run(): void
     {
         // Limpar dados da tabela Users
-        User::truncate();
+        \DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        \App\Models\User::truncate();
+        \DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
 
         // Encontrar a role 'DEV'
         $devRole = Role::where('name', 'DEV')->first();

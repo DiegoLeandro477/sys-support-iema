@@ -29,7 +29,7 @@
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h5 class="card-title">Nova Solicitação de Suporte</h5>
-                        <form method="POST" action="">
+                        <form method="POST" action="{{ route('client.ticket.store') }}">
                             @csrf
                             <div class="mb-3">
                                 <label for="subject" class="form-label">Assunto</label>
@@ -47,6 +47,11 @@
             <div class="col-md-6 d-flex align-items-center">
                 <div>
                     <h5>Suas Solicitações</h5>
+                    @if(session('success'))
+                    <div class="alert alert-success text-center">
+                        {{ session('success') }}
+                    </div>
+                    @endif
                     <p>Acompanhe o status das suas solicitações de suporte abaixo.</p>
                 </div>
             </div>
@@ -66,22 +71,28 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @forelse($tickets as $ticket)
                             <tr>
-                                <td>2</td>
-                                <td>subject</td>
+                                <td>{{ $ticket->id }}</td>
+                                <td>{{ $ticket->subject }}</td>
                                 <td>
-                                    <span class="badge bg-success">
-                                        Aberto
+                                    <span class="badge
+                                            @if($ticket->status == 'Aberto') bg-success
+                                            @elseif($ticket->status == 'Em andamento') bg-warning
+                                            @else bg-secondary @endif">
+                                        {{ $ticket->status }}
                                     </span>
                                 </td>
-                                <td>20/04/2002</td>
+                                <td>{{ $ticket->created_at->format('d/m/Y H:i') }}</td>
                                 <td>
-                                    <a href="" class="btn btn-sm btn-outline-primary">Ver detalhes</a>
+                                    <a href="#" class="btn btn-sm btn-outline-primary">Ver detalhes</a>
                                 </td>
                             </tr>
+                            @empty
                             <tr>
                                 <td colspan="5" class="text-center text-muted">Nenhuma solicitação encontrada.</td>
                             </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
