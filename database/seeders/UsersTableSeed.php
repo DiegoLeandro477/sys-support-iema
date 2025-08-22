@@ -22,7 +22,7 @@ class UsersTableSeed extends Seeder
         \DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
 
-        // Encontrar a role 'DEV'
+        // Encontrar a role 'DEV'l
         $devRole = Role::where('name', 'DEV')->first();
 
         // Criar um novo usuário
