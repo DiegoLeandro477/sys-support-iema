@@ -6,7 +6,7 @@ use App\Http\Controllers\DevController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('client.dashboard');
 });
 
 Route::get('/login', [AuthController::class, 'index'])->name('login');
@@ -20,6 +20,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth', 'role:DEV'])->group(function () {
     Route::get('/dev/dashboard', [DevController::class, 'index'])->name('dev.dashboard');
+    Route::post('/dev/ticket/{id}/update-status', [DevController::class, 'updateStatus'])->name('dev.ticket.update-status');
 });
 
 Route::middleware(['auth', 'role:CLIENT'])->group(function () {

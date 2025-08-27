@@ -22,7 +22,7 @@ class CheckRole
         if (!Auth::check() || $request->user()->role->name !== $role) {
             // Se a condição for verdadeira, redireciona ou retorna um erro.
             // O 'abort(403)' retorna um erro 'Acesso Negado'.
-            abort(403, 'Você não tem permissão para acessar esta área.');
+            return redirect()->route('login')->with('error', 'Você não tem permissão para acessar esta área.');
         }
 
         // Se o usuário tiver a role correta, continua a requisição

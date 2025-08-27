@@ -27,8 +27,8 @@ class UsersTableSeed extends Seeder
 
         // Criar um novo usuário
         User::create([
-            'name' => 'Diego Leandro',
-            'email' => 'diego@gmail.com',
+            'name' => 'Admin Master',
+            'email' => 'admin@gmail.com',
             'password' => Hash::make('admin123'),    // Use Hash::make() para a senha
             'role_id' => $devRole->id,  // Atribui o ID da role
         ]);
