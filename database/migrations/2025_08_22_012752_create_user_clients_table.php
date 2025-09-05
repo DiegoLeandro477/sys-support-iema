@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tickets', function (Blueprint $table) {
+        Schema::create('user_clients', function (Blueprint $table) {
             $table->id();
-            $table->string('subject')->nullable();
-            $table->string('description')->nullable();
-            $table->string('status')->default('Aberto');
-            $table->foreignId('user_client_id')->constrained()->onDelete('cascade');
-            $table->timestamp('closed_at')->nullable();
+            $table->foreignId('user_id')->constrained()->unique()->onDelete('cascade');
+            $table->string('unidade')->nullable(false);
+            $table->string('number_phone')->nullable(false);
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tickets');
+        Schema::dropIfExists('user_clients');
     }
 };

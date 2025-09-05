@@ -11,6 +11,17 @@ class AuthController extends Controller
 {
     public function index()
     {
+        if (Auth::check()) {
+            $user = Auth::user();
+            if ($user->role->name === 'DEV') {
+                return redirect()->route('dev.dashboard');
+            }
+            if ($user->role->name === 'CLIENT') {
+                return redirect()->route('client.dashboard');
+            }
+            Auth::logout();
+            return redirect()->route('login')->with('error', 'Acesso não autorizado.');
+        }
         return view('auth.login');
     }
 
@@ -65,7 +76,7 @@ class AuthController extends Controller
         Auth::login($user);
 
         // Redirect to client dashboard
-        return redirect()->route('client.dashboard');
+        return redirect()->route('client.user.update');
     }
 
     public function logout(Request $request)

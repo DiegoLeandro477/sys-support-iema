@@ -18,6 +18,10 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
+        public function userClient()
+        {
+            return $this->hasOne(\App\Models\UserClient::class, 'user_id');
+        }
     /**
      * The attributes that are mass assignable.
      *

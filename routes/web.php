@@ -20,11 +20,16 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth', 'role:DEV'])->group(function () {
     Route::get('/dev/dashboard', [DevController::class, 'index'])->name('dev.dashboard');
-    Route::post('/dev/ticket/{id}/update-status', [DevController::class, 'updateStatus'])->name('dev.ticket.update-status');
+    Route::post('/dev/ticket/{id}/update', [DevController::class, 'pullTicket'])->name('dev.ticket.pull');
+    Route::post('/dev/ticket/{id}/leave', [DevController::class, 'leaveTicket'])->name('dev.ticket.leave');
+    Route::get('/dev/ticket/{id}/details', action: [DevController::class, 'viewTicketDetails'])->name('dev.ticket.details');
 });
 
 Route::middleware(['auth', 'role:CLIENT'])->group(function () {
     Route::get('/cliente/dashboard', [ClientController::class, 'index'])->name('client.dashboard');
 
     Route::post('/cliente/ticket/store', [ClientController::class, 'store'])->name('client.ticket.store');
+
+    Route::get('/cliente/user/update', [ClientController::class, 'updateData'])->name('client.user.update');
+    Route::post('/cliente/user/update', [ClientController::class, 'updateDataStore'])->name('client.user.update.store');
 });

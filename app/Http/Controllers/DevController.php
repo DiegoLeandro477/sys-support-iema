@@ -13,7 +13,7 @@ class DevController extends Controller
         return view('dev.dashboard', compact('tickets'));
     }
 
-    public function updateStatus(Request $request, $id)
+    public function pullTicket(Request $request, $id)
     {
         $ticket = Ticket::findOrFail($id);
         $ticket->status = 'Em andamento';
@@ -24,5 +24,27 @@ class DevController extends Controller
 
 
         return redirect()->route('dev.dashboard')->with('success', 'Status do ticket atualizado com sucesso.');
+    }
+
+    public function leaveTicket(Request $request, $id)
+    {
+        $ticket = Ticket::findOrFail($id);
+
+        // Remove o dev do ticket (remove da tabela pivot)
+        $ticket->devs()->detach([auth()->id()]);
+
+        // Se não houver mais devs associados, atualiza o status para 'Aberto'
+        if ($ticket->devs()->count() === 0) {
+            $ticket->status = 'Aberto';
+            $ticket->save();
+        }
+
+        return redirect()->route('dev.dashboard')->with('success', 'Você saiu do ticket com sucesso.');
+    }
+
+    public function viewTicketDetails($id)
+    {
+        $ticket = Ticket::with(['client', 'devs'])->findOrFail($id);
+        return view('dev.ticket_details', compact('ticket'));
     }
 }
