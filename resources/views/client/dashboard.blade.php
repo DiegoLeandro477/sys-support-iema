@@ -10,8 +10,8 @@
                     <form method="POST" action="{{ route('client.ticket.store') }}">
                         @csrf
                         <div class="mb-3">
-                            <label for="subject" class="form-label">Assunto</label>
-                            <input type="text" class="form-control" id="subject" name="subject" required>
+                            <label for="system" class="form-label">Sistema</label>
+                            <input type="text" class="form-control" id="system" name="system" required>
                         </div>
                         <div class="mb-3">
                             <label for="description" class="form-label">Descrição</label>
@@ -42,7 +42,7 @@
                     <thead class="table-light">
                         <tr>
                             <th>#</th>
-                            <th>Assunto</th>
+                            <th>Sistema</th>
                             <th>Status</th>
                             <th>Data</th>
                             <th>Ações</th>
@@ -52,7 +52,7 @@
                         @forelse($tickets as $ticket)
                         <tr>
                             <td>{{ $ticket->id }}</td>
-                            <td>{{ $ticket->subject }}</td>
+                            <td>{{ $ticket->system }}</td>
                             <td>
                                 <span class="badge
                                             @if($ticket->status == 'Aberto') bg-success

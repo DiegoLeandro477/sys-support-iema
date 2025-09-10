@@ -9,7 +9,7 @@ class Ticket extends Model
     protected $table = 'tickets';
 
     protected $fillable = [
-        'subject',
+        'system',
         'status',
         'description',
         'closed_at',

@@ -26,15 +26,16 @@ class ClientController extends Controller
     function store(Request $request)
     {
         $request->validate([
-            'subject' => 'required|string|max:255',
+            'system' => 'required|string|max:255',
             'description' => 'required|string',
         ]);
 
-        Ticket::create([
-            'subject' => $request->subject,
+        $ticket = Ticket::create([
+            'system' => $request->system,
             'description' => $request->description,
             'user_client_id' => auth()->user()->userClient->id,
         ]);
+
 
         return redirect()->route('client.dashboard')->with('success', 'Ticket created successfully.');
     }

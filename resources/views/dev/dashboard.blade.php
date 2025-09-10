@@ -13,9 +13,9 @@
         @forelse ($myTickets as $ticket)
         <div class="area-card">
             <div class="area-card-left">
-                <h6>{{ $ticket->client->name }}</h6>
-                <p><strong>{{ $ticket->client->unidade }}</strong></p>
-                <form id="puxe-ticket" action="{{ route('dev.ticket.leave', $ticket->id) }}" method="POST" class="">
+                <h6>{{ $ticket->system }}</h6>
+                <p><strong>{{ $ticket->client->userClient->unidade }}</strong></p>
+                <form id="puxe-ticket" action="{{ route('dev.ticket.leave',$ticket->id) }}" method="POST" class="">
                     @csrf
                     <button class="btn">Deixar</button>
                 </form>
@@ -41,8 +41,8 @@
         @forelse ($ticketsSemDev as $ticket)
         <div class="area-card">
             <div class="area-card-left">
-                <h6>{{ $ticket->client->name }}</h6>
-                <p><strong>{{ $ticket->client->unidade }}</strong></p>
+                <h6>{{ $ticket->system }}</h6>
+                <p><strong>{{ $ticket->client->userClient->unidade }}</strong></p>
                 <form id="puxe-ticket" action="{{ route('dev.ticket.pull', $ticket->id) }}" method="POST" class="">
                     @csrf
                     <button class="btn">Puxar</button>
