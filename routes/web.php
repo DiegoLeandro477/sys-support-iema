@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DevController;
+use App\Http\Controllers\MessageController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,12 +18,14 @@ Route::post('/cadastrar', [AuthController::class, 'register'])->name('register.p
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::post('/ticket/{id}/message/send', [MessageController::class, 'sendMessage'])->name('ticket.message.send')->middleware('auth');
+
+Route::get('/ticket/{id}/details',  [DevController::class, 'viewTicketDetails'])->name('ticket.details')->middleware('auth');
 
 Route::middleware(['auth', 'role:DEV'])->group(function () {
     Route::get('/dev/dashboard', [DevController::class, 'index'])->name('dev.dashboard');
     Route::post('/dev/ticket/{id}/update', [DevController::class, 'pullTicket'])->name('dev.ticket.pull');
     Route::post('/dev/ticket/{id}/leave', [DevController::class, 'leaveTicket'])->name('dev.ticket.leave');
-    Route::get('/dev/ticket/{id}/details', action: [DevController::class, 'viewTicketDetails'])->name('dev.ticket.details');
 });
 
 Route::middleware(['auth', 'role:CLIENT'])->group(function () {

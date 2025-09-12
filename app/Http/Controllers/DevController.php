@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Message;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 
@@ -45,6 +46,8 @@ class DevController extends Controller
     public function viewTicketDetails($id)
     {
         $ticket = Ticket::with(['client', 'devs'])->findOrFail($id);
-        return view('dev.ticket_details', compact('ticket'));
+        $messages = Message::where('ticket_id', $ticket->id)->orderBy('created_at')->get();
+
+        return view('dev.ticket_details', compact('ticket', 'messages'));
     }
 }

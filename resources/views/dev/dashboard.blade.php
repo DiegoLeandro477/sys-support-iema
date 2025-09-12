@@ -11,18 +11,20 @@
         @endphp
         <h5 style="margin-top:20px;">Meus Tickets / <span>{{ count($myTickets) }}</span></h5>
         @forelse ($myTickets as $ticket)
-        <div class="area-card">
-            <div class="area-card-left">
+        <div class="area-card column">
+            <div class="d-flex justify-content-between mb-2">
                 <h6>{{ $ticket->system }}</h6>
-                <p><strong>{{ $ticket->client->userClient->unidade }}</strong></p>
-                <form id="puxe-ticket" action="{{ route('dev.ticket.leave',$ticket->id) }}" method="POST" class="">
-                    @csrf
-                    <button class="btn">Deixar</button>
-                </form>
-            </div>
-            <div class="area-card-right">
                 <p>{{ $ticket->created_at->format('d/m/Y') }}</p>
-                <a href="{{ route('dev.ticket.details', $ticket->id) }}" class="btn-details">Ver detalhes</a>
+            </div>
+            <div class="row">
+                <p><strong>{{ $ticket->client->userClient->unidade }}</strong></p>
+            </div>
+            <div class="d-flex justify-content-between">
+                <form method="POST" action="{{ route('dev.ticket.leave',$ticket->id) }}" class="me-2">
+                    @csrf
+                    <button class="btn btn-outline-primary btn-sm">Deixar</button>
+                </form>
+                <a href="{{ route('ticket.details', $ticket->id) }}" class=" btn btn-primary btn-sm">Ver detalhes</a>
             </div>
         </div>
         @empty
@@ -39,18 +41,20 @@
         <h5 class="subtitle-area-on-ticket">Todos os Tickets em Aberto / <span>{{ count($ticketsSemDev) }}</span></h5>
         <!-- // aqui vai o loop dos tickets que nao contem devs relacionados -->
         @forelse ($ticketsSemDev as $ticket)
-        <div class="area-card">
-            <div class="area-card-left">
+        <div class="area-card column">
+            <div class="d-flex justify-content-between mb-2">
                 <h6>{{ $ticket->system }}</h6>
-                <p><strong>{{ $ticket->client->userClient->unidade }}</strong></p>
-                <form id="puxe-ticket" action="{{ route('dev.ticket.pull', $ticket->id) }}" method="POST" class="">
-                    @csrf
-                    <button class="btn">Puxar</button>
-                </form>
-            </div>
-            <div class="area-card-right">
                 <p>{{ $ticket->created_at->format('d/m/Y') }}</p>
-                <a href="{{ route('dev.ticket.details', $ticket->id) }}" class="btn-details">Ver detalhes</a>
+            </div>
+            <div class="row">
+                <p><strong>{{ $ticket->client->userClient->unidade }}</strong></p>
+            </div>
+            <div class="d-flex justify-content-between">
+                <form method="POST" action="{{ route('dev.ticket.pull',$ticket->id) }}" class="me-2">
+                    @csrf
+                    <button class="btn btn-sm btn-outline-primary">Puxar</button>
+                </form>
+                <a href="{{ route('ticket.details', $ticket->id) }}" class="btn btn-primary btn-sm">Ver detalhes</a>
             </div>
         </div>
         @empty

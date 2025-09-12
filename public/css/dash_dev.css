@@ -10,10 +10,6 @@ body {
     flex-direction: column;
 }
 
-main {
-    flex: 1;
-}
-
 header {
     background-color: #013873;
     border-bottom: 1px solid #dee2e6;
@@ -37,7 +33,7 @@ header {
     text-decoration: none;
 }
 
-.navbar .navbar-brand:hover asfasf {
+.navbar .navbar-brand:hover {
     text-decoration: underline;
 }
 
@@ -60,6 +56,7 @@ header {
 }
 
 main {
+    flex: 1;
     gap: 10px;
     padding: 20px;
     background-color: #d9eef8;
@@ -105,9 +102,6 @@ main {
     padding: 15px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
 }
 
 .area-card-right {

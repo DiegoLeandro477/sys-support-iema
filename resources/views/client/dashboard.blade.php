@@ -41,7 +41,6 @@
                 <table class="table table-bordered align-middle">
                     <thead class="table-light">
                         <tr>
-                            <th>#</th>
                             <th>Sistema</th>
                             <th>Status</th>
                             <th>Data</th>
@@ -51,7 +50,6 @@
                     <tbody>
                         @forelse($tickets as $ticket)
                         <tr>
-                            <td>{{ $ticket->id }}</td>
                             <td>{{ $ticket->system }}</td>
                             <td>
                                 <span class="badge
@@ -63,7 +61,7 @@
                             </td>
                             <td>{{ $ticket->created_at->format('d/m/Y H:i') }}</td>
                             <td>
-                                <a href="#" class="btn btn-sm btn-outline-primary">Ver detalhes</a>
+                                <a href="{{ route('ticket.details', $ticket->id) }}" class="btn btn-sm btn-outline-primary">Ver detalhes</a>
                             </td>
                         </tr>
                         @empty
